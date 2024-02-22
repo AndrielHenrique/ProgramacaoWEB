@@ -9,6 +9,13 @@ Vamos criar variáveis e objetos para representar diferentes tipos de dados rela
     idade: do tipo number, representando a idade do usuário.
     email: do tipo string, representando o endereço de e-mail do usuário.
     isAtivo: do tipo boolean, representando se o usuário está ativo ou não.
+*/
+let nomeCompleto : string = 'Andriel Henrique Alves de Lima'
+let Idade : number = 22
+let email : string = 'andriel.h@aluno.ifsp.edu.br'
+let isAtivo : boolean = true
+
+/*
 
 2 -Crie um objeto usuario com as seguintes propriedades:
 
@@ -22,6 +29,29 @@ Vamos criar variáveis e objetos para representar diferentes tipos de dados rela
 
 */
 
+type usuario = {
+    nome : string,
+    sobrenome : string,
+    idade : number
+};
+type contato = {
+    email : string,
+    telefone: string
+};
+let usuario: usuario = {
+    nome: "Andriel",
+    sobrenome: "Henrique",
+    idade: 22
+};
+let contato: contato = {
+    email: "andriel.h@aluno.ifsp.edu.br",
+    telefone: "1234567"
+};
+console.log(usuario)
+console.log(contato)
+
+
+
 
 /*
 
@@ -34,7 +64,12 @@ Precisamos armazenar informações sobre diferentes produtos disponíveis na loj
     nomeProduto: do tipo string, representando o nome de um produto.
     preco: do tipo number, representando o preço do produto.
     disponivel: do tipo boolean, representando se o produto está disponível em estoque ou não.
+*/
 
+let nomeProduto: string = "Trident"
+let preco: number = 3
+let disponivel: boolean = true
+/*
 
 02 - Crie um objeto produto com as seguintes propriedades:
 
@@ -45,3 +80,19 @@ Precisamos armazenar informações sobre diferentes produtos disponíveis na loj
     Em seguida, imprima todas as variáveis e propriedades do objeto produto usando console.log.
 
 */
+
+type produto = {
+    nome: string,
+    preco: number,
+    estoque: number,
+    categorias: string[]
+};
+
+let produto: produto = {
+    nome: "Trident",
+    preco: 3,
+    estoque: 1000,
+    categorias: ["Melancia", "Menta", "Morango"]
+};
+
+console.log(produto)

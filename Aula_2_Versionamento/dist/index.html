@@ -8,10 +8,16 @@
 <body>
     <h1>Questionário - Para exemplos utilize o console do browser</h1>
     <h2>01 - Na definição de uma variável em TypeScript, qual é a diferença entre a atribuição por anotação e por inferência de tipos? Poderia citar exemplos de situações em que cada abordagem é mais apropriada?</h2>
-    <h3>Resposta: </h3>
+    <h3>Resposta:
+         Por atribuição atribuimos um tipo ao objeto, deixamos claro o tipo dela; 
+         Por inferencia ele vai verificar aquilo que esta chegando, para definir o tipo do objeto. Para um objeto que é óbvio, como Nome e idade, é como um contrato e deve ser povoado, usamos por inferencia como let nome = "Joao" e let idade = 21 </h3>
     <h2>02 - Quais são algumas das características-chave dos arrays em TypeScript e como eles diferem dos arrays em JavaScript puro? Além disso, você poderia fornecer exemplos de como usar arrays em TypeScript para lidar com diferentes tipos de dados?</h2>
-    <h3>Resposta: </h3>
+    <h3>Resposta: Arrays em JavaScript não são tipados e pode ter qualquer tipo de dado.
+                exemplo let user = ["User1", 1]
+                Enquanto no Typescript é de forma unica, sendo assim para usar array devemos usar uma sequencia de tipos, 
+                exemplo let users: string[] = ["User1", "User2", "User3"] , let numeros : number[] = [1,2,3]
+    </h3>
     <h2>03 - Quais são as principais características e benefícios de usar objetos em TypeScript em comparação com JavaScript puro? Além disso, como você pode definir e trabalhar com objetos em TypeScript de uma maneira que aproveite ao máximo o sistema de tipos estáticos?</h3>
-    <h3>Resposta: </h3>  
+    <h3>Resposta:A principal característica e benefício de usar objetos em Typescript é devido a tipagem estática, o código é mais fácil de entender e agiliza o processo de identificação de erros. O typescript permite elaborar melhor estruturas em relaçao ao js, pela estrutura dos dados ser melhor definida. </h3>  
 </body>
 </html>
