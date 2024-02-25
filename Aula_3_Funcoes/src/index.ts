@@ -102,6 +102,28 @@ switch(expression) {
 */
 
 
+function calculadora(x:number, y:number, op:string){
+    switch(op) {
+        case'soma':
+            return x + y;
+            break;
+        case'subtracao':
+            return x - y;
+            break;
+        case'divisao':
+            return x / y;
+            break;
+        case'multiplicacao':
+            return x * y;
+            break;
+    }
+}
+console.log(calculadora(5, 3, "soma")); 
+console.log(calculadora(10, 2, "subtracao")); 
+console.log(calculadora(4, 5, "multiplicacao")); 
+console.log(calculadora(10, 2, "divisao")); 
+
+    
 /*
 Exercício 2: Verificador de Palíndromo
 Crie uma função chamada verificarPalindromo que recebe uma string como parâmetro e retorna verdadeiro se a string for um palíndromo 
@@ -118,3 +140,19 @@ let frase: string = "Ana"
 const fraseInverso = frase.split('').reverse().join('');
 
 */
+function verificarPalindromo (frase: string){
+    const fraseInverso = frase.split('').reverse().join('');
+    if (fraseInverso == frase){
+    return true;
+   }
+    else{
+     return false;
+   }
+    
+}
+console.log(verificarPalindromo("arara")); 
+console.log(verificarPalindromo("reviver")); 
+console.log(verificarPalindromo("banana")); 
+console.log(verificarPalindromo("reconhecer")); 
+console.log(verificarPalindromo("subinoonibus"));
+
