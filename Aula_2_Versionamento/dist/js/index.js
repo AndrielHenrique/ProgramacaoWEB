@@ -1,7 +1,8 @@
+"use strict";
 /*
 
 Exercício:
-Considere um sistema de cadastro de usuários onde precisamos armazenar informações sobre os usuários. 
+Considere um sistema de cadastro de usuários onde precisamos armazenar informações sobre os usuários.
 Vamos criar variáveis e objetos para representar diferentes tipos de dados relacionados a um usuário.
 
 1- Crie as seguintes variáveis primitivas:
@@ -51,19 +52,9 @@ let contato: Contato = {
 console.log(usuario)
 console.log(contato)
 */
-
-let Usuario:{
-    nome: string,
-    sobrenome:string,
-    idade: number,
-    contato:{
-        email: string
-        telefone: string,
-    }
-}
-
-Usuario ={
-    nome: "Andriel" ,
+let Usuario;
+Usuario = {
+    nome: "Andriel",
     sobrenome: "Henrique",
     idade: 23,
     contato: {
@@ -71,31 +62,11 @@ Usuario ={
         telefone: "343234234",
     },
 };
-
-type Pessoa = {
-    nome: string,
-    sobrenome:string,
-    idade: number,
-    contato:{
-        email: string
-        telefone: string,
-    },
-};
-
-let Pessoa : {
-    nome: "Andriel" ,
-    sobrenome: "Henrique",
-    idade: 23,
-    contato: {
-        email: "andriel.h@Aluno.ifsp.edu.br",
-        telefone: "343234234",
-    },
-};
-
+let Pessoa;
 /*
 
 Exercício:
-Vamos criar um sistema de gestão de produtos para uma loja online. 
+Vamos criar um sistema de gestão de produtos para uma loja online.
 Precisamos armazenar informações sobre diferentes produtos disponíveis na loja. Vamos criar variáveis e objetos para representar esses produtos.
 
 01 - Crie as seguintes variáveis primitivas:
@@ -104,7 +75,7 @@ Precisamos armazenar informações sobre diferentes produtos disponíveis na loj
     preco: do tipo number, representando o preço do produto.
     disponivel: do tipo boolean, representando se o produto está disponível em estoque ou não.
 */
-/* 
+/*
 let nomeProduto: string = "Trident"
 let preco: number = 3
 let disponivel: boolean = true
@@ -136,19 +107,11 @@ let produto: produto = {
 
 console.log(produto)
 */
-
-let produto: {
-    nome: string,
-    preco: number,
-    estoque: number,
-    categorias: string[],
-};
-
+let produto;
 produto = {
     nome: "Trident",
     preco: 3,
     estoque: 1000,
     categorias: ["Melancia", "Menta", "Morango"],
 };
-
-console.log(produto)
+console.log(produto);

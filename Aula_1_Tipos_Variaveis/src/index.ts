@@ -72,7 +72,7 @@ let visitante = { nome: "João", idade: 30 };
 
 
 
-
+console.log(visitante);
 
 
 
