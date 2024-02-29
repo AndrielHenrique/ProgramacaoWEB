@@ -4,7 +4,7 @@ Exercício 1
 Crie uma função que receba uma lista de números como parâmetro e retorne o
 maior número da lista.
 */
-function maiornumero(x) {
+function maiornumero(...x) {
     let maior = x[0];
     for (let i = 0; i < x.length; i++) {
         if (x[i] > maior) {
@@ -14,7 +14,7 @@ function maiornumero(x) {
     return maior;
 }
 console.log("Ex 1: O maior numero é: ");
-console.log(maiornumero([2, 3, 4, 454, 45, 12, 12]));
+console.log(maiornumero(2, 3, 4, 454, 45, 12, 12));
 /*
 Exercício 2
 Desenvolva uma função que receba um número como parâmetro e verifique se
@@ -37,7 +37,7 @@ Implemente uma função que calcule a média aritmética de um array de números
 e retorne o resultado. Utilize essa função para calcular a média de diferentes
 conjuntos de números.
 */
-function mediaAritmetica(x) {
+function mediaAritmetica(...x) {
     let media = 0;
     let soma = 0;
     for (let i = 0; i < x.length; i++) {
@@ -47,9 +47,9 @@ function mediaAritmetica(x) {
     return media;
 }
 console.log("Ex 3: Media Aritmetica");
-console.log(mediaAritmetica([10, 9, 8, 7])); //tem que dar 8.5
-console.log(mediaAritmetica([2, 3, 4, 5])); //tem que dar 3.5
-console.log(mediaAritmetica([10, 10])); //tem que dar 10
+console.log(mediaAritmetica(10, 9, 8, 7)); //tem que dar 8.5
+console.log(mediaAritmetica(2, 3, 4, 5)); //tem que dar 3.5
+console.log(mediaAritmetica(10, 10)); //tem que dar 10
 /*
 Exercício 4
 Crie uma função que receba uma string como parâmetro e retorne a mesma
@@ -87,13 +87,12 @@ Exercício 6
 Implemente uma função que inverta a ordem dos elementos em um array.
 Utilize essa função para inverter a ordem de diferentes conjuntos de elementos.
 */
-function InverterOrdem(x) {
-    for (let i = 0; i < x.length; i++) {
-    }
-    return x;
+function InverterOrdem(...x) {
+    return x.reverse();
 }
 console.log("Ex 6: Inverter ordem dos elementos em um array");
-console.log(InverterOrdem([1, 2, 3, 4]));
+console.log(InverterOrdem(1, 2, "teste"));
+console.log(InverterOrdem(2, 3, 4, "amongus"));
 /*
 Exercício 7
 Crie uma função que receba um valor e uma porcentagem como parâmetros. A
@@ -123,7 +122,7 @@ Exercício 9
 Implemente uma função que retorne a soma de todos os números pares em um
 array.
 */
-function somapares(x) {
+function somapares(...x) {
     let somar = 0;
     let i = 0;
     for (; i < x.length; i++) {
@@ -134,14 +133,30 @@ function somapares(x) {
     return somar;
 }
 console.log("Ex 9: Somar numeros pares");
-console.log(somapares([2, 4, 5, 6, 7, 8, 9, 10])); // 2+4+6+8+10 = 30
-console.log(somapares([7, 7, 7, 7, 7])); // vai dar 0 nao tem numero par
-console.log(somapares([6, 6, 6, 6, 6])); // vai dar 30
-console.log(somapares([20, 21, 22, 23, 24])); // 20+22+24 = 66
+console.log(somapares(2, 4, 5, 6, 7, 8, 9, 10)); // 2+4+6+8+10 = 30
+console.log(somapares(7, 7, 7, 7, 7)); // vai dar 0 nao tem numero par
+console.log(somapares(6, 6, 6, 6, 6)); // vai dar 30
+console.log(somapares(20, 21, 22, 23, 24)); // 20+22+24 = 66
 /*
 Exercício 10
 Crie uma função que calcule o fatorial de um número. Utilize essa função para
 calcular o fatorial de diferentes números.
 */
 function Fatorial(x) {
+    let fat = 1;
+    if (x != 1) {
+        for (let i = 1; i <= x; i++) {
+            fat = i * fat;
+        }
+        return fat;
+    }
+    else {
+        return x;
+    }
 }
+console.log("Ex 10: Fatorial de um numero");
+console.log(Fatorial(1)); //fatorial de 1 é o proprio 1
+console.log(Fatorial(2)); //2
+console.log(Fatorial(5)); //120
+console.log(Fatorial(6)); //720
+console.log(Fatorial(7)); //5040
