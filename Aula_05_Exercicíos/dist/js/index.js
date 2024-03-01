@@ -3,7 +3,7 @@
 parâmetro e retorne o array ordenado em ordem crescente
 */
 function OrdemCrescente(...x) {
-    let maior = 0;
+    let maior;
     for (let i = 0; i < x.length; i++) {
         if (x[i] > i) {
             maior = x[i];
