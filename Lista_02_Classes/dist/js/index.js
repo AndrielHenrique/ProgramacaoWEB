@@ -143,6 +143,7 @@ class Produto {
         if (quantidade < this.quantidadeEmEstoque) {
             return this.quantidadeEmEstoque -= quantidade;
         }
+        console.log("Estoque insuficiente");
         return 1;
     }
 }
@@ -158,3 +159,4 @@ console.log(produto);
 console.log(`Calcular valor do produto ${produto.getNome}, Preço: ${produto.getPreco} * Quantidade no estoque:${produto.getQuantidadeEmEstoque} = `, produto.calcularValorTotalEmEstoque());
 console.log(produto.reporEstoque(3));
 console.log(produto.vender(10));
+console.log(produto.vender(20)); //msg para estoque insuficiente
