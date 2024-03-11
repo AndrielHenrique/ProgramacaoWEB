@@ -143,8 +143,9 @@ class Produto {
         if (quantidade < this.quantidadeEmEstoque) {
             return this.quantidadeEmEstoque -= quantidade;
         }
-        console.log("Estoque insuficiente");
-        return 1;
+        else {
+            return "Estoque insuficiente";
+        }
     }
 }
 let produto = new Produto("Trident melancia", 3, 20);

@@ -169,16 +169,17 @@ class Produto {
     calcularValorTotalEmEstoque(){
         return this.quantidadeEmEstoque * this.preco;
     }
-    reporEstoque(quantidade: number): number{
+    reporEstoque(quantidade: number){
         return this.quantidadeEmEstoque += quantidade;
     }
 
-    vender(quantidade: number): number{
+    vender(quantidade: number){
         if(quantidade < this.quantidadeEmEstoque){
         return this.quantidadeEmEstoque -= quantidade;
         }
-        console.log("Estoque insuficiente");
-        return 1;
+        else{
+            return "Estoque insuficiente";
+        }
     }
 }
 
