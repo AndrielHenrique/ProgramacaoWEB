@@ -7,17 +7,20 @@ const app = express();
 app.use(express.json());
 
 function appLog(){
-    console.log("A API se encontra disponível no URL: http://localhost:3000");
+    console.log("A API se encontra disponível no URL: http://localhost:3000/api/produto/add");
 }
 
 let produtos:Produtos [] = [];
 
 function addProduto(req: Request, res: Response){
     const produto:Produtos = req.body;
+    console.log("Produto adicionado:", produto);
     produtos.push(produto);
+    console.log("Produtos:", produtos);
     return res.status(200).json(
         {
-            mensagem: "Produto adicionado com sucesso!"
+            mensagem: "Produto adicionado com sucesso!",
+            ProdutoAdicionado: produto
         }
         );
 }

@@ -9,14 +9,17 @@ const PORT = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3000;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 function appLog() {
-    console.log("A API se encontra disponível no URL: http://localhost:3000");
+    console.log("A API se encontra disponível no URL: http://localhost:3000/api/produto/add");
 }
 let produtos = [];
 function addProduto(req, res) {
     const produto = req.body;
+    console.log("Produto adicionado:", produto);
     produtos.push(produto);
+    console.log("Produtos:", produtos);
     return res.status(200).json({
-        mensagem: "Produto adicionado com sucesso!"
+        mensagem: "Produto adicionado com sucesso!",
+        ProdutoAdicionado: produto
     });
 }
 app.post("/api/produto/add", addProduto);
