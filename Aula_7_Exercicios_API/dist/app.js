@@ -18,9 +18,17 @@ function addProduto(req, res) {
     produtos.push(produto);
     console.log("Produtos:", produtos);
     return res.status(200).json({
-        mensagem: "Produto adicionado com sucesso!",
+        mensagem: `Produto adicionado com sucesso!`,
         ProdutoAdicionado: produto
     });
 }
+function buscarProduto(req, res) {
+    const id = req.query.id;
+    res.status(200).json({
+        mensagem: `Você solicitou informações do produto com o ID: ${id}`,
+        produto: produtos
+    });
+}
 app.post("/api/produto/add", addProduto);
+app.get("/api/buscar/produto", buscarProduto);
 app.listen(PORT, appLog);
