@@ -15,13 +15,20 @@ export class ProductService {
         return novoProduto;
     }
 
-    consultarProduto(id: any): Product | undefined {
+    consultarProduto(id: any, name: any): Product | undefined {
         const idNumber: number = parseInt(id, 10)
-        console.log(id)
-        return this.productRepository.filtraProdutoPorId(idNumber);
+        const nameName: string = name
+        if(idNumber){
+            return this.productRepository.filtraProdutoPorId(idNumber);
+        }
+        if(nameName){
+        return this.productRepository.filtraProdutoPorNome(nameName);
+        }
     }
 
     getProducts(): Product[] {
         return this.productRepository.filtrarTodosProdutos();
     }
+
+
 }

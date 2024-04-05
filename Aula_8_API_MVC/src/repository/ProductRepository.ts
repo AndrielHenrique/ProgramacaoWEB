@@ -15,4 +15,7 @@ export class ProductRepository {
         return this.productList;
     }
 
+    filtraProdutoPorNome(name: string): Product | undefined {
+        return this.productList.find(product => product.name === name);
+    }
 }

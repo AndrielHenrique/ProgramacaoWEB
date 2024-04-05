@@ -14,4 +14,5 @@ export class Product {
     private gerarId(): number {
         return Date.now();
     }
+    
 }
