@@ -11,11 +11,30 @@ export class ProductRepository {
         return this.productList.find(product => product.id === id);
     }
 
-    filtrarTodosProdutos(): Product[] {
+    filtraProdutoPorNome(name: string): Product | undefined {
+        return this.productList.find(product => product.name === name);
+    }
+
+    filtraProdutoPorNomeId(id: number, name: string): Product | undefined {
+        return this.productList.find(product => product.name === name && product.id === id);
+    }
+
+    filtraTodosProdutos(): Product[] {
         return this.productList;
     }
 
-    filtraProdutoPorNome(name: string): Product | undefined {
-        return this.productList.find(product => product.name === name);
+    deletaProduto(produto: Product) {
+        const index = this.productList.indexOf(produto);
+        if (index !== -1) {
+            this.productList.splice(index, 1);
+        }
+    }
+
+    atualizaProduto(produto: Product): number {
+        const index = this.productList.indexOf(produto);
+        if (index !== -1) {
+            this.productList[index] = produto;
+        }
+        return index;
     }
 }

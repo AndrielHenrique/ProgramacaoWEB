@@ -16,9 +16,9 @@ export function cadastrarProduto(req: Request, res: Response) {
     }
 };
 
-export function pesquisarProduto(req: Request, res: Response) {
+export function pesquisarProdutoPorID(req: Request, res: Response) {
     try {
-        const produto = productService.consultarProduto(req.query.id, req.query.name);
+        const produto = productService.consultarProduto(req.query.id);
         if (produto) {
             res.status(200).json(
                 {
@@ -36,30 +36,7 @@ export function pesquisarProduto(req: Request, res: Response) {
 
 export function listaProdutos(req: Request, res: Response) {
     try {
-        res.status(200).json(productService.getProducts(req.query.ordem));
-    } catch (error: any) {
-        res.status(400).json({ message: error.message });
-    }
-};
-
-export function deletarProduto(req: Request, res: Response) {
-    try {
-        productService.deletarProduto(req.query.id);
-        res.status(200).json({ message: "Produto deletado com sucesso!" });
-    } catch (error: any) {
-        res.status(400).json({ message: error.message })
-    }
-};
-
-export function atualizarProduto(req: Request, res: Response) {
-    try {
-        const novoProduto = productService.atualizarProduto(req.body);
-        res.status(201).json(
-            {
-                mensagem: "Produto atualizado com sucesso!",
-                produto: novoProduto
-            }
-        );
+        res.status(200).json(productService.getProducts());
     } catch (error: any) {
         res.status(400).json({ message: error.message });
     }
