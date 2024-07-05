@@ -1,0 +1,64 @@
+2 - post http://localhost:3000/api/modalidade
+
+{
+    "name": " pao a",
+    "vegan": false
+}
+
+1 - get  http://localhost:3000/api/modalidade/todas
+
+3 - put http://localhost:3000/api/modalidade
+{
+    "id": 1720125901198,
+    "name": " pao ab",
+    "vegan": false
+}
+
+4 - delet http://localhost:3000/api/modalidade/:id
+
+5 - get http://localhost:3000/api/modalidade/:id
+
+6 - post http://localhost:3000/api/estoque
+{   
+    "modalidadeID": ,
+    "quantidade": 123,
+    "precoVenda": 23
+}
+7 - get http://localhost:3000/api/estoque/todos
+
+8 - get http://localhost:3000/api/estoque/:id
+
+9 -  put http://localhost:3000/api/estoque
+
+{   
+    "id": 1720126931592,
+    "modalidadeId" : 1720126931592,
+    "quantidade": 1232,
+    "precoVenda": 23
+}
+
+10 - delet http://localhost:3000/api/estoque
+{   
+    "id": 1720126931592,
+    "modalidadeId": 1720126931592,
+    "quantidadeRemover": 23223
+}
+
+11 - post http://localhost:3000/api/venda
+{
+    "cpf": 12345678901,
+    "itens": [
+        {
+            "estoquePaesID": 1720126931592,
+            "quantidade": 2,
+            "nome": "pao ab"
+        },
+        {
+            "estoquePaesID": 1720126931592,
+            "quantidade": 1,
+            "nome": " pao ab"
+        }
+    ]
+}
+
+12 - get http://localhost:3000/api/venda/:id
