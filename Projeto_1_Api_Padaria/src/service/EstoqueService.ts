@@ -66,7 +66,7 @@ export class EstoqueService {
 
         const EstoqueEncontrado = this.buscarEstoquePorID(id);
         if (!EstoqueEncontrado) {
-            throw new Error("Produto não cadastrado!!!");
+            throw new Error("Estoque não encontrado!");
         } else if (EstoqueEncontrado.quantidade < quantidadeRemover) {
             throw new Error(`Quantidade solicitada ultrapassa a quantidade em estoque do item ${EstoqueEncontrado.modalidadeID}`);
         }

@@ -55,7 +55,7 @@ export class ModalidadeService {
     deletarModalidade(id: any) {
         const product = this.buscarModalidadeID(id);
         if (!product) {
-            throw new Error(`Modalidade com o id: ${id} não esta encontrado.!`);
+            throw new Error(`Modalidade com o id: ${id} não foi encontrado.!`);
         }
 
         this.productRepository.deletaModalidade(product);
