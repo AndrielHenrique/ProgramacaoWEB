@@ -9,12 +9,12 @@ export class ContaService{
     tipoContaRepository = new TipoContaRepository();
 
     async criaConta(contaData: any):Promise<Conta>{
-        const {saldo,tipoConta} = contaData;
+        const {cpf, saldo,tipoConta} = contaData;
 
-        if (typeof saldo !== 'number' || typeof tipoConta !== 'number') {
+        if (typeof cpf !== 'string' || typeof saldo !== 'number' || typeof tipoConta !== 'number') {
             throw new Error("Informações incompletas ou incorretas");
         }
-        const tipoContaResult: TipoConta[]= await this.tipoContaRepository.getTipoContaPorDescricaoOuCodigoOuId(undefined,tipoConta)
+        const tipoContaResult: TipoConta[]= await this.tipoContaRepository.getTipoContaPorDescricaoOuCodigoOuId(undefined, undefined,tipoConta)
 
         if(tipoContaResult.length == 0){
             throw new Error("Tipo de conta informado inexistente.");
