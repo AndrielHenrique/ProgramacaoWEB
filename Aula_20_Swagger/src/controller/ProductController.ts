@@ -1,9 +1,7 @@
-import { Request, Response } from "express";
 import { ProductService } from "../service/ProductService";
-import { Controller, Route, Tags, Post, Body, Res, TsoaResponse} from "tsoa";
+import { Controller, Route, Tags, Post, Body, Res, TsoaResponse, Put, Delete, Get} from "tsoa";
 import { ProductRequestDto } from "../model/dto/ProductRequestDto";
 import { BasicResponseDto } from "../model/dto/BasicResponseDto";
-
 @Route("product")
 @Tags("Product")
 
@@ -25,6 +23,63 @@ export class ProductController extends Controller{
     }
 };
 
+@Put()
+async atualizarProduto(
+    @Body() dto: ProductRequestDto,
+    @Res() fail: TsoaResponse<400, BasicResponseDto>,
+    @Res() sucess: TsoaResponse<201,BasicResponseDto>  
+): Promise<void>{
+    try{
+        const product = await this.productService.atualizarProduto(dto);
+        return sucess(201, new BasicResponseDto("Produto atualizado com sucesso", product));
+    }catch(error:any){
+        return fail(400, new BasicResponseDto(error.message, undefined))
+    }
+}
+
+@Delete()
+async deletarProduto(
+    @Body() dto: ProductRequestDto,
+    @Res() fail: TsoaResponse<400, BasicResponseDto>,
+    @Res() sucess: TsoaResponse<201,BasicResponseDto>  
+): Promise<void>{
+    try{
+    const product = await this.productService.deletarProduto(dto);
+        return sucess(201, new BasicResponseDto("Produto deletado com sucesso", product));
+    }catch(error:any){
+        return fail(400, new BasicResponseDto(error.message, undefined))
+    }
+}
+/*
+@Get()
+async filtrarProduto(
+    @Body() dto: ProductRequestDto,
+    @Res() fail: TsoaResponse<400, BasicResponseDto>,
+    @Res() sucess: TsoaResponse<201,BasicResponseDto> 
+): Promise<void>{
+    try{
+        const product = await this.productService.filtrarProduto(dto);
+        return sucess(201, new BasicResponseDto("Listando produto especifico", product));
+    }catch(error: any){
+        return fail(400, new BasicResponseDto(error.message, undefined))
+    }
+}
+
+@Get()
+async listarTodosProduto(
+    @Body() dto: ProductRequestDto,
+    @Res() fail: TsoaResponse<400, BasicResponseDto>,
+    @Res() sucess: TsoaResponse<201,BasicResponseDto> 
+): Promise<void>{
+    try{
+        const product = await this.productService.listarTodosProdutos();
+        return sucess(201, new BasicResponseDto("Listando todos Produtos", product));
+    }catch(error: any){
+        return fail(400, new BasicResponseDto(error.message, undefined))
+    }
+}
+
+/*
  async atualizarProduto (req: Request, res: Response){
     try {
         const produto = await this.productService.atualizarProduto(req.body);
@@ -81,4 +136,6 @@ export class ProductController extends Controller{
     }
 };
 
+
+*/
 }
