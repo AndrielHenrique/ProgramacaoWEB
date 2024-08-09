@@ -1,16 +1,16 @@
 import { ProductEntity } from "../model/entity/ProductEntity";
 import { ProductRepository } from "../repository/ProductRepository";
 
-export class ProductService{
+export class ProductService {
 
     productRepository: ProductRepository = new ProductRepository();
 
     async cadastrarProduto(produtoData: any): Promise<ProductEntity> {
         const { name, price, expirationDate } = produtoData;
-        
+
         const produto = new ProductEntity(undefined, name, price, expirationDate)
 
-        const novoProduto =  await this.productRepository.insertProduct(produto);
+        const novoProduto = await this.productRepository.insertProduct(produto);
         console.log("Service - Insert ", novoProduto);
         return novoProduto;
     }
@@ -38,13 +38,13 @@ export class ProductService{
     async filtrarProduto(produtoData: any): Promise<ProductEntity> {
         const idNumber = parseInt(produtoData, 10);
 
-        const produto =  await this.productRepository.filterProduct(idNumber);
+        const produto = await this.productRepository.filterProduct(idNumber);
         console.log("Service - Filtrar", produto);
         return produto;
     }
 
     async listarTodosProdutos(): Promise<ProductEntity[]> {
-        const produto =  await this.productRepository.filterAllProduct();
+        const produto = await this.productRepository.filterAllProduct();
         console.log("Service - Filtrar Todos", produto);
         return produto;
     }
