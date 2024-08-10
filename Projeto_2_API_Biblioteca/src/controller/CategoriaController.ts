@@ -1,92 +1,91 @@
-import { ProductService } from "../service/ProductService";
 import { Controller, Route, Tags, Post, Body, Res, TsoaResponse, Put, Delete, Get, Query, Path } from "tsoa";
-import { ProductRequestDto } from "../model/dto/ProductRequestDto";
 import { BasicResponseDto } from "../model/dto/BasicResponseDto";
+import { CategoriaRequestsDto } from "../model/dto/CategoriaRequestsDto";
+import { CategoriaService } from "../service/CategoriaService";
 @Route("product")
 @Tags("Product")
 
-export class ProductController extends Controller {
-    productService = new ProductService();
-
+export class CategoriaController extends Controller {
+    categoriaService = new CategoriaService();
 
     @Post()
-    async cadastrarProduto(
-        @Body() dto: ProductRequestDto,
+    async cadastrarCategoria(
+        @Body() dto: CategoriaRequestsDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
         try {
-            const product = await this.productService.cadastrarProduto(dto);
-            return sucess(201, new BasicResponseDto("Produto criado com sucesso", product));
+            const product = await this.categoriaService.cadastrarCategoria(dto);
+            return sucess(201, new BasicResponseDto("Categoria criada com sucesso", product));
         } catch (error: any) {
             return fail(400, new BasicResponseDto(error.message, undefined))
         }
     };
 
     @Put()
-    async atualizarProduto(
-        @Body() dto: ProductRequestDto,
+    async atualizarCategoria(
+        @Body() dto: CategoriaRequestsDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
         try {
-            const product = await this.productService.atualizarProduto(dto);
-            return sucess(201, new BasicResponseDto("Produto atualizado com sucesso", product));
+            const product = await this.categoriaService.atualizarCategoria(dto);
+            return sucess(201, new BasicResponseDto("Categoria atualizada com sucesso", product));
         } catch (error: any) {
             return fail(400, new BasicResponseDto(error.message, undefined))
         }
     }
 
     @Delete()
-    async deletarProduto(
-        @Body() dto: ProductRequestDto,
+    async deletarCategoria(
+        @Body() dto: CategoriaRequestsDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
         try {
-            const product = await this.productService.deletarProduto(dto);
-            return sucess(201, new BasicResponseDto("Produto deletado com sucesso", product));
+            const product = await this.categoriaService.deletarCategoria(dto);
+            return sucess(201, new BasicResponseDto("Categoria deletada com sucesso", product));
         } catch (error: any) {
             return fail(400, new BasicResponseDto(error.message, undefined))
         }
     }
 
     @Get("id/{id}")
-    async filtrarProduto(
+    async filtrarCategoria(
         @Path() id: number,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
         try {
-            const product = await this.productService.filtrarProduto(id);
-            return sucess(201, new BasicResponseDto("Listando produto especifico por id", product));
+            const product = await this.categoriaService.filtrarCategoria(id);
+            return sucess(201, new BasicResponseDto("Mostranddo categoria por id", product));
         } catch (error: any) {
             return fail(400, new BasicResponseDto(error.message, undefined))
         }
     }
 
     @Get()
-    async filtrarProdutoPorNome(
+    async filtrarCategoriaPorNome(
         @Query() name: number,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
         try {
-            const product = await this.productService.filtrarProdutoPorNome(name);
-            return sucess(201, new BasicResponseDto("Listando produto pelo nome", product));
+            const product = await this.categoriaService.filtrarCategoriaPorNome(name);
+            return sucess(201, new BasicResponseDto("Listando categorias pelo nome", product));
         } catch (error: any) {
             return fail(400, new BasicResponseDto(error.message, undefined))
         }
     }
 
     @Get("all")
-    async listarTodosProduto(
+    async listarTodosCategoria(
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
         try {
-            const product = await this.productService.listarTodosProdutos();
-            return sucess(201, new BasicResponseDto("Listando todos Produtos", product));
+            const product = await this.categoriaService.listarTodasCategorias();
+            return sucess(201, new BasicResponseDto("Listando todas Categorias", product));
         } catch (error: any) {
             return fail(400, new BasicResponseDto(error.message, undefined))
         }

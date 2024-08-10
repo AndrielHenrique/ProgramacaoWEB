@@ -1,4 +1,4 @@
-import { executarComandoSQL} from "../database/mysql";
+import { executarComandoSQL } from "../database/mysql";
 import { Conta } from "../model/Conta";
 export class ContaRepository {
 
@@ -49,7 +49,7 @@ export class ContaRepository {
     async atualizaTipoConta(tipoConta: number, novoTipoConta: number) {
         try {
             const query = 'UPDATE banco.Conta SET tipoConta = ? WHERE tipoConta = ?'
-            const contasAfetadas: number = (await this.getContaPorIdOuNumeroOuTipoOuCliente(undefined,undefined,tipoConta)).length;
+            const contasAfetadas: number = (await this.getContaPorIdOuNumeroOuTipoOuCliente(undefined, undefined, tipoConta)).length;
             if (contasAfetadas > 0) {
                 await executarComandoSQL(query, [novoTipoConta, tipoConta]);
                 console.log(`Tipo de conta atualizado em ${contasAfetadas} contas:`);
