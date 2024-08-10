@@ -2,8 +2,8 @@ import { Controller, Route, Tags, Post, Body, Res, TsoaResponse, Put, Delete, Ge
 import { BasicResponseDto } from "../model/dto/BasicResponseDto";
 import { CategoriaRequestsDto } from "../model/dto/CategoriaRequestsDto";
 import { CategoriaService } from "../service/CategoriaService";
-@Route("product")
-@Tags("Product")
+@Route("categoria")
+@Tags("Categoria")
 
 export class CategoriaController extends Controller {
     categoriaService = new CategoriaService();
@@ -57,7 +57,7 @@ export class CategoriaController extends Controller {
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
         try {
-            const product = await this.categoriaService.filtrarCategoria(id);
+            const product = await this.categoriaService.filtrarCategoriaPorId(id);
             return sucess(201, new BasicResponseDto("Mostranddo categoria por id", product));
         } catch (error: any) {
             return fail(400, new BasicResponseDto(error.message, undefined))

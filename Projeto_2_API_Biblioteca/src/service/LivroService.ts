@@ -1,11 +1,14 @@
+import { EmprestimoEntity } from "../model/entity/EmprestimoEntity";
 import { LivroEntity } from "../model/entity/LivroEntity";
 import { CategoriaRepository } from "../repository/CategoriaRepository";
+import { EmprestimoRepository } from "../repository/EmprestimoRepository";
 import { LivroRepository } from "../repository/LivroRepository";
 
 export class LivroService {
 
     private livroRepository = LivroRepository.getInstance();
     private categoriaRepository = CategoriaRepository.getInstance();
+    private emprestimoRepository = EmprestimoRepository.getInstance();
 
     async cadastrarLivro(livroData: any): Promise<LivroEntity> {
         const { titulo, autor, categoriaId } = livroData;
@@ -47,16 +50,15 @@ export class LivroService {
         }
 
 
-        /*const emprestimos: Emprestimo[] = await this.em   prestimoRepository.getEmprestimosPorLivroId(livro.id);
+        const emprestimos: EmprestimoEntity[] = await this.emprestimoRepository.filterEmprestimosPorLivro(livro.id);
 
         if (emprestimos.length > 0) {
             throw new Error("Livro informado não pode ser apagado pois existem empréstimos vinculados.");
         }
-            */
+
 
         await this.livroRepository.deleteLivro(livro.id);
-
-
+        console.log("Service - Delete Categoria", livro.id);
         return livro;
     }
 

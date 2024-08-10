@@ -3,8 +3,8 @@ import { BasicResponseDto } from "../model/dto/BasicResponseDto";
 import { LivroRequestsDto } from "../model/dto/LivroRequestsDto";
 import { LivroService } from "../service/LivroService";
 
-@Route("product")
-@Tags("Product")
+@Route("livro")
+@Tags("Livro")
 
 export class LivroController extends Controller {
     livroService = new LivroService();

@@ -8,21 +8,43 @@ export class CategoriaService {
     async cadastrarCategoria(categoriaData: any): Promise<CategoriaEntity> {
         const { name } = categoriaData;
 
-        const produto = new CategoriaEntity(undefined, name)
+        if (typeof name !== 'string' || name.trim() === '') {
+            throw new Error("Nome da categoria é obrigatório e deve ser uma string não vazia.");
+        }
 
-        const novaCategoria = await this.categoriaRepository.inserirCategoria(produto);
-        console.log("Service - Insert ", novaCategoria);
+        const categoria = new CategoriaEntity(undefined, name);
+
+        const categoriasExistentes = await this.categoriaRepository.filterCategoriaByName(name);
+        if (categoriasExistentes.length > 0) {
+            throw new Error("Categoria com esse nome já existe.");
+        }
+
+        const novaCategoria = await this.categoriaRepository.inserirCategoria(categoria);
+        console.log("Service - Insert Categoria", novaCategoria);
         return novaCategoria;
     }
 
-    async atualizarCategoria(produtoData: any): Promise<CategoriaEntity> {
-        const { name } = produtoData;
+    async atualizarCategoria(categoriaData: any): Promise<CategoriaEntity> {
+        const { id, name } = categoriaData;
 
-        const produto = new CategoriaEntity(name)
+        if (typeof id !== 'number') {
+            throw new Error("Id informado incorreto.");
+        }
 
-        await this.categoriaRepository.updateCategoria(produto);
-        console.log("Service - Update ", produto);
-        return produto;
+        if (typeof name !== 'string' || name.trim() === '') {
+            throw new Error("Nome da categoria deve ser uma string não vazia.");
+        }
+
+        const categoria = new CategoriaEntity(id, name);
+
+        const categoriasExistentes = await this.categoriaRepository.filterCategoria(categoria.id);
+        if (!categoriasExistentes) {
+            throw new Error("Categoria informada inexistente.");
+        }
+
+        await this.categoriaRepository.updateCategoria(categoria);
+        console.log("Service - Update Categoria", categoria);
+        return categoria;
     }
 
     async deletarCategoria(categoriaData: any): Promise<CategoriaEntity> {
@@ -31,36 +53,45 @@ export class CategoriaService {
         if (typeof id !== 'number') {
             throw new Error("Id informado incorreto.");
         }
-        const categoria = new CategoriaEntity(id, name);
-        const categoriasEncontradas: CategoriaEntity[] = await this.categoriaRepository.filterCategoriaByIdName(categoria.id, categoria.name);
-
-        if (categoriasEncontradas.length === 0) {
+        const categoriasExistentes = await this.categoriaRepository.filterCategoria(id);
+        if (!categoriasExistentes) {
             throw new Error("Categoria informada inexistente.");
         }
-        await this.categoriaRepository.deleteCategoria(categoria.id);
-        console.log("Service - Delete Categoria", categoria.id);
-        return categoria;
+
+        await this.categoriaRepository.deleteCategoria(id);
+        console.log("Service - Delete Categoria", id);
+        return new CategoriaEntity(id, name);
     }
 
-    async filtrarCategoria(produtoData: any): Promise<CategoriaEntity> {
-        const idNumber = parseInt(produtoData, 10);
+    async filtrarCategoriaPorId(id: any): Promise<CategoriaEntity | null> {
+        const idNumber = parseInt(id, 10);
 
-        const produto = await this.categoriaRepository.filterCategoria(idNumber);
-        console.log("Service - Filtrar", produto);
-        return produto;
+        if (!idNumber) {
+            throw new Error("Id informado é inválido.");
+        }
+
+        const categorias = await this.categoriaRepository.filterCategoria(idNumber);
+        if (!categorias) {
+            return null;
+        }
+        return categorias;
     }
-    async filtrarCategoriaPorNome(produtoData: any): Promise<CategoriaEntity[]> {
-        const name: string = produtoData;
 
-        const produtos = await this.categoriaRepository.filterCategoriaByName(name);
-        console.log("Service - Filtrar", produtos);
-        return produtos;
+    async filtrarCategoriaPorNome(name: any): Promise<CategoriaEntity[]> {
+        const nome: string = name;
+
+        if (typeof nome !== 'string' || nome.trim() === '') {
+            throw new Error("Nome da categoria deve ser uma string não vazia.");
+        }
+
+        const categorias = await this.categoriaRepository.filterCategoriaByName(nome);
+        console.log("Service - Filtrar Categoria por Nome", categorias);
+        return categorias;
     }
 
     async listarTodasCategorias(): Promise<CategoriaEntity[]> {
-        const produto = await this.categoriaRepository.filterAllCategoria();
-        console.log("Service - Filtrar Todos", produto);
-        return produto;
+        const categorias = await this.categoriaRepository.filterAllCategoria();
+        console.log("Service - Listar Todas as Categorias", categorias);
+        return categorias;
     }
-
 }

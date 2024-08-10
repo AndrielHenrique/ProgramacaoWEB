@@ -1,4 +1,3 @@
-import { query } from "express";
 import { executarComandoSQL } from "../database/mysql";
 import { LivroEntity } from "../model/entity/LivroEntity";
 
