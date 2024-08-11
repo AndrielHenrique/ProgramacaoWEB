@@ -11,7 +11,10 @@ export class PessoaEntity {
     }
     private validatesInformation(name: any, email: any) {
         let error = '';
-        if (typeof name !== 'string' || typeof email !== 'string') {
+        if (typeof name !== 'string') {
+            error += ("Informações incompletas ou incorretas. ");
+        }
+        if (typeof email !== 'string') {
             error += ("Informações incompletas ou incorretas. ");
         }
 

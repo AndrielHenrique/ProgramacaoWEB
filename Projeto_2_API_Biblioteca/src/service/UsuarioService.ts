@@ -10,23 +10,33 @@ export class UsuarioService {
     async cadastrarUsuario(usuarioData: any): Promise<UsuarioEntity> {
         const { idPessoa, senha } = usuarioData;
 
+        const usuarioExistente = await this.filtrarUsuarioPorIdPessoa(idPessoa);
+        if (!usuarioExistente) {
+            throw new Error("Usuario ja existe.");
+        }
+
         const pessoa = await this.pessoaRepository.filterPessoaPorId(idPessoa);
         if (!pessoa) {
             throw new Error("Pessoa não encontrada.");
         }
-
         const usuario = new UsuarioEntity(undefined, idPessoa, senha);
+
         return this.usuarioRepository.inserirUsuario(usuario);
     }
 
     async atualizarUsuario(usuarioData: any): Promise<UsuarioEntity> {
-        const { id, senha } = usuarioData;
-
+        const { id, idPessoa, senha } = usuarioData;
         if (typeof id !== 'number') {
-            throw new Error("ID informado incorreto.");
+            throw new Error("Id do usuario é obrigatório");
+        }
+        if (typeof idPessoa !== 'number') {
+            throw new Error("Id da pessoa é obrigatório");
+        }
+        if (typeof senha !== 'string') {
+            throw new Error("A senha é obrigatório");
         }
 
-        const usuario = new UsuarioEntity(id, undefined, senha);
+        const usuario = new UsuarioEntity(undefined, idPessoa, senha);
         await this.usuarioRepository.atualizarUsuario(usuario);
         console.log("Service - Update Usuario", usuario);
         return usuario;
@@ -34,7 +44,9 @@ export class UsuarioService {
 
     async deletarUsuario(usuarioData: any): Promise<UsuarioEntity> {
         const { id } = usuarioData;
-
+        if (typeof id !== 'number') {
+            throw new Error("Id do usuario é obrigatório");
+        }
         if (typeof id !== 'number') {
             throw new Error("ID informado incorreto.");
         }

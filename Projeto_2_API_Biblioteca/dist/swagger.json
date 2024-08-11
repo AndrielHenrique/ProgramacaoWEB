@@ -16,11 +16,15 @@
 					"idPessoa": {
 						"type": "number",
 						"format": "double"
+					},
+					"senha": {
+						"type": "string"
 					}
 				},
 				"required": [
 					"id",
-					"idPessoa"
+					"idPessoa",
+					"senha"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -101,12 +105,10 @@
 						"format": "double"
 					},
 					"dataEmprestimo": {
-						"type": "string",
-						"format": "date-time"
+						"type": "string"
 					},
 					"dataDevolucao": {
-						"type": "string",
-						"format": "date-time"
+						"type": "string"
 					}
 				},
 				"required": [
@@ -1293,49 +1295,6 @@
 						}
 					}
 				}
-			},
-			"get": {
-				"operationId": "FiltrarCategoriaPorNome",
-				"responses": {
-					"201": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/BasicResponseDto"
-								}
-							}
-						}
-					},
-					"204": {
-						"description": "No content"
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/BasicResponseDto"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Categoria"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
 			}
 		},
 		"/categoria/id/{id}": {
@@ -1378,6 +1337,50 @@
 						"schema": {
 							"format": "double",
 							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/categoria/name": {
+			"get": {
+				"operationId": "FiltrarCategoriaPorNome",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Categoria"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
 						}
 					}
 				]

@@ -64,9 +64,9 @@ export class CategoriaController extends Controller {
         }
     }
 
-    @Get()
+    @Get("name")
     async filtrarCategoriaPorNome(
-        @Query() name: number,
+        @Query() name: string,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {

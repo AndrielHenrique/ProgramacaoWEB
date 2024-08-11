@@ -32,6 +32,18 @@ export class EmprestimoService {
         if (typeof id !== 'number') {
             throw new Error("ID informado incorreto.");
         }
+        if (typeof idLivro !== 'number') {
+            throw new Error("Id do livro é obrigatório");
+        }
+        if (typeof usuarioID !== 'number') {
+            throw new Error("Id do usuario é obrigatório");
+        }
+        if (typeof dataEmprestimo !== 'string') {
+            throw new Error("Data do emprestimo é obrigatório");
+        }
+        if (typeof dataDevolucao !== 'string') {
+            throw new Error("Data da Devolução é obrigatório");
+        }
 
         const livro = await this.livroRepository.filterLivro(idLivro);
         if (!livro) {

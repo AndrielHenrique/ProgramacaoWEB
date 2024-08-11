@@ -18,11 +18,14 @@ export class EmprestimoEntity {
 
     private validatesInformation(idLivro: any, usuarioID: any, dataEmprestimo: any, dataDevolucao: any) {
         let error = '';
-        if (typeof idLivro !== 'number' || typeof usuarioID !== 'number' || typeof dataEmprestimo !== 'string' || dataDevolucao !== 'string') {
-            error += ("Informações incompletas ou incorretas. ");
+        if (typeof idLivro !== 'number' || typeof usuarioID !== 'number' || typeof dataEmprestimo !== 'string' || typeof dataDevolucao !== 'string') {
+            error += ("IdLivro Informações incompletas ou incorretas. ");
         }
 
-        if (!verificaFormatoData(dataEmprestimo || dataDevolucao)) {
+        if (!verificaFormatoData(dataEmprestimo)) {
+            error += ("A data deve possuir o formato: dd/MM/yyyy");
+        }
+        if (!verificaFormatoData(dataDevolucao)) {
             error += ("A data deve possuir o formato: dd/MM/yyyy");
         }
 

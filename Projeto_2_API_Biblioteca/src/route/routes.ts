@@ -24,6 +24,7 @@ const models: TsoaRoute.Models = {
         "properties": {
             "id": {"dataType":"double","required":true},
             "idPessoa": {"dataType":"double","required":true},
+            "senha": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
@@ -64,8 +65,8 @@ const models: TsoaRoute.Models = {
             "id": {"dataType":"double","required":true},
             "idLivro": {"dataType":"double","required":true},
             "usuarioID": {"dataType":"double","required":true},
-            "dataEmprestimo": {"dataType":"datetime","required":true},
-            "dataDevolucao": {"dataType":"datetime","required":true},
+            "dataEmprestimo": {"dataType":"string","required":true},
+            "dataDevolucao": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
@@ -988,13 +989,13 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/categoria',
+        app.get('/categoria/name',
             ...(fetchMiddlewares<RequestHandler>(CategoriaController)),
             ...(fetchMiddlewares<RequestHandler>(CategoriaController.prototype.filtrarCategoriaPorNome)),
 
             async function CategoriaController_filtrarCategoriaPorNome(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    name: {"in":"query","name":"name","required":true,"dataType":"double"},
+                    name: {"in":"query","name":"name","required":true,"dataType":"string"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     sucess: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };

@@ -13,10 +13,15 @@ export class LivroEntity {
     }
     private validatesInformation(name: any, autor: any, categoriaID: any) {
         let error = '';
-        if (typeof name !== 'string' || typeof autor !== 'string' || categoriaID !== 'number') {
+        if (typeof name !== 'string') {
             error += ("Informações incompletas ou incorretas. ");
         }
-
+        if (typeof autor !== 'string') {
+            error += ("Informações incompletas ou incorretas. ");
+        }
+        if (typeof categoriaID !== 'number') {
+            error += ("Informações incompletas ou incorretas. ");
+        }
         if (error != '') {
             throw new Error(error);
         }

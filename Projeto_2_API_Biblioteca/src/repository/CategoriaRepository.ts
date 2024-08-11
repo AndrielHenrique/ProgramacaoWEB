@@ -61,24 +61,25 @@ export class CategoriaRepository {
         }
     }
 
-    async deleteCategoria(categoriaID: number): Promise<void> {
+    async deleteCategoria(categoriaData: CategoriaEntity): Promise<CategoriaEntity[]> {
+        const query = "DELETE FROM estoque.Categoria WHERE id = ?";
         try {
-            const query = "DELETE FROM estoque.Categoria WHERE id = ?";
-            await executarComandoSQL(query, [categoriaID]);
-            console.log('Cliente deletado com sucesso:', categoriaID);
+            const resultado: CategoriaEntity[] = await executarComandoSQL(query, [categoriaData.id]);
+            console.log('Categoria deletado com sucesso:', resultado);
+            return resultado;
         } catch (err) {
-            console.error('Erro ao deletar cliente:', err);
+            console.error('Erro ao deletar categoria:', err);
             throw err;
         }
     }
 
-    async filterCategoria(id: number): Promise<CategoriaEntity> {
+    async filterCategoria(id: number): Promise<CategoriaEntity[]> {
         const query = "SELECT * FROM estoque.Categoria where id = ?";
 
         try {
-            const resultado = await executarComandoSQL(query, [id]);
+            const resultado: CategoriaEntity[] = await executarComandoSQL(query, [id]);
             console.log('Categoria localizada com sucesso, ID: ', resultado);
-            return new Promise<CategoriaEntity>((resolve) => {
+            return new Promise<CategoriaEntity[]>((resolve) => {
                 resolve(resultado);
             })
         } catch (err: any) {
@@ -92,7 +93,7 @@ export class CategoriaRepository {
 
         try {
             const resultado: CategoriaEntity[] = await executarComandoSQL(query, [name]);
-            console.log('Categoria localizada com sucesso, ID: ', resultado);
+            console.log('Categoria localizada com sucesso, Nome: ', resultado);
             return new Promise<CategoriaEntity[]>((resolve) => {
                 resolve(resultado);
             })
@@ -116,6 +117,7 @@ export class CategoriaRepository {
         }
     }
 
+
     async filterCategoriaByIdName(id?: number, name?: string): Promise<CategoriaEntity[]> {
         let query = "SELECT * FROM estoque.Categoria WHERE";
         const params: any[] = [];
@@ -136,8 +138,12 @@ export class CategoriaRepository {
 
         try {
             const result: CategoriaEntity[] = await executarComandoSQL(query, params);
-            console.log('Busca efetuada com sucesso:', result);
-            return result;
+            if (result.length != 0) {
+                console.log('Busca efetuada com sucesso:', result);
+                return result;
+            } else {
+                throw new Error("Nao existe");
+            }
         } catch (err) {
             console.error('Erro ao buscar categoria:', err);
             throw err;

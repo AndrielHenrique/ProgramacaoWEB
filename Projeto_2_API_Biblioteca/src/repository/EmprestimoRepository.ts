@@ -1,5 +1,7 @@
 import { executarComandoSQL } from "../database/mysql";
 import { EmprestimoEntity } from "../model/entity/EmprestimoEntity";
+import { LivroEntity } from "../model/entity/LivroEntity";
+import { UsuarioEntity } from "../model/entity/UsuarioEntity";
 
 export class EmprestimoRepository {
 

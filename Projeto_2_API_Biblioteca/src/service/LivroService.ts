@@ -11,24 +11,45 @@ export class LivroService {
     private emprestimoRepository = EmprestimoRepository.getInstance();
 
     async cadastrarLivro(livroData: any): Promise<LivroEntity> {
-        const { titulo, autor, categoriaId } = livroData;
+        const { name, autor, categoriaID } = livroData;
 
-        const categoria = await this.categoriaRepository.filterCategoria(categoriaId);
-        if (!categoria) {
+        const categoriasExistentes = await this.categoriaRepository.filterCategoria(categoriaID);
+        if (!categoriasExistentes) {
+            throw new Error("Categoria não encontrada.");
+        }
+        const livroExistente = await this.livroRepository.filterLivroByName(name)
+        if (livroExistente.length > 0) {
             throw new Error("Categoria não encontrada.");
         }
 
-        const livro = new LivroEntity(undefined, titulo, autor, categoriaId);
+        const livro = new LivroEntity(undefined, name, autor, categoriaID);
         return this.livroRepository.inserirLivro(livro);
     }
 
     async atualizarLivro(livroData: any): Promise<LivroEntity> {
-        const { id, titulo, autor, categoriaId } = livroData;
-
+        const { id, name, autor, categoriaID } = livroData;
+        if (typeof id !== 'number') {
+            throw new Error("Id do livro é obrigatório");
+        }
+        if (typeof autor !== 'string' || autor.trim() === '') {
+            throw new Error("Autor do livro é obrigatório e deve ser uma string não vazia.");
+        }
+        if (typeof categoriaID !== 'number') {
+            throw new Error("Categoria ID deve ser um número válido.");
+        }
+        if (typeof name !== 'string' || name.trim() === '') {
+            throw new Error("Nome do livro é obrigatório e deve ser uma string não vazia.");
+        }
+        if (typeof autor !== 'string' || autor.trim() === '') {
+            throw new Error("Autor do livro é obrigatório e deve ser uma string não vazia.");
+        }
+        if (typeof categoriaID !== 'number') {
+            throw new Error("Categoria ID deve ser um número válido.");
+        }
         if (typeof id !== 'number') {
             throw new Error("Id informado incorreto.");
         }
-        const livro = new LivroEntity(id, titulo, autor, categoriaId);
+        const livro = new LivroEntity(id, name, autor, categoriaID);
         await this.livroRepository.updateLivro(livro);
         console.log("Service - Update ", livro);
         return livro;
@@ -38,6 +59,24 @@ export class LivroService {
     async deletarLivro(livroData: any): Promise<LivroEntity> {
         const { id, name, autor, categoriaID } = livroData;
 
+        if (typeof id !== 'number') {
+            throw new Error("Id do livro é obrigatório");
+        }
+        if (typeof autor !== 'string' || autor.trim() === '') {
+            throw new Error("Autor do livro é obrigatório e deve ser uma string não vazia.");
+        }
+        if (typeof categoriaID !== 'number') {
+            throw new Error("Categoria ID deve ser um número válido.");
+        }
+        if (typeof name !== 'string' || name.trim() === '') {
+            throw new Error("Nome do livro é obrigatório e deve ser uma string não vazia.");
+        }
+        if (typeof autor !== 'string' || autor.trim() === '') {
+            throw new Error("Autor do livro é obrigatório e deve ser uma string não vazia.");
+        }
+        if (typeof categoriaID !== 'number') {
+            throw new Error("Categoria ID deve ser um número válido.");
+        }
         if (typeof id !== 'number') {
             throw new Error("Id informado incorreto.");
         }
@@ -49,13 +88,9 @@ export class LivroService {
             throw new Error("Livro informado inexistente.");
         }
 
-
-        const emprestimos: EmprestimoEntity[] = await this.emprestimoRepository.filterEmprestimosPorLivro(livro.id);
-
-        if (emprestimos.length > 0) {
+        if ((await this.emprestimoRepository.filterEmprestimosPorLivro(livro.id)).length > 0) {
             throw new Error("Livro informado não pode ser apagado pois existem empréstimos vinculados.");
         }
-
 
         await this.livroRepository.deleteLivro(livro.id);
         console.log("Service - Delete Categoria", livro.id);

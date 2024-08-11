@@ -32,15 +32,13 @@ export class LivroRepository {
     }
 
     async inserirLivro(livro: LivroEntity): Promise<LivroEntity> {
-        const query = "INSERT INTO estoque.Livro (name) values (?)";
+        const query = "INSERT INTO estoque.Livro (name, autor, categoriaID) values (?, ?, ?)";
 
         try {
-            const resultado = await executarComandoSQL(query, [livro.name]);
+            const resultado = await executarComandoSQL(query, [livro.name, livro.autor, livro.categoriaID]);
             console.log('Livro inserido com sucesso, ID: ', resultado.insertId);
             livro.id = resultado.insertId;
-            return new Promise<LivroEntity>((resolve) => {
-                resolve(livro);
-            })
+            return livro;
         } catch (err) {
             console.error('Erro ao inserir a livro:', err);
             throw err;
@@ -48,10 +46,10 @@ export class LivroRepository {
     }
 
     async updateLivro(product: LivroEntity): Promise<LivroEntity> {
-        const query = "UPDATE estoque.Livro set name = ? where id = ?;";
+        const query = "UPDATE estoque.Livro set name = ?, autor = ?, categoriaID = ? where id = ?;";
 
         try {
-            const resultado = await executarComandoSQL(query, [product.name, product.id]);
+            const resultado = await executarComandoSQL(query, [product.name, product.autor, product.categoriaID, product.id]);
             console.log('Livro atualizada com sucesso, ID: ', resultado);
             return new Promise<LivroEntity>((resolve) => {
                 resolve(product);

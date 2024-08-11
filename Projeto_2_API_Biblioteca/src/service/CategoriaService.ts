@@ -47,23 +47,28 @@ export class CategoriaService {
         return categoria;
     }
 
-    async deletarCategoria(categoriaData: any): Promise<CategoriaEntity> {
+    async deletarCategoria(categoriaData: any): Promise<CategoriaEntity[]> {
         const { id, name } = categoriaData;
 
         if (typeof id !== 'number') {
             throw new Error("Id informado incorreto.");
         }
-        const categoriasExistentes = await this.categoriaRepository.filterCategoria(id);
-        if (!categoriasExistentes) {
-            throw new Error("Categoria informada inexistente.");
+
+        const categoria = new CategoriaEntity(id, name);
+
+        const categoriasExistentes = await this.categoriaRepository.filterCategoriaByIdName(id, name);
+        if (categoriasExistentes.length != 0) {
+            await this.categoriaRepository.deleteCategoria(categoria);
+            console.log("Service - Delete Categoria", id);
+            return categoriasExistentes;
+        }
+        else {
+            throw new Error("Categoria informada nao existe.");
         }
 
-        await this.categoriaRepository.deleteCategoria(id);
-        console.log("Service - Delete Categoria", id);
-        return new CategoriaEntity(id, name);
     }
 
-    async filtrarCategoriaPorId(id: any): Promise<CategoriaEntity | null> {
+    async filtrarCategoriaPorId(id: any): Promise<CategoriaEntity[]> {
         const idNumber = parseInt(id, 10);
 
         if (!idNumber) {
@@ -72,12 +77,12 @@ export class CategoriaService {
 
         const categorias = await this.categoriaRepository.filterCategoria(idNumber);
         if (!categorias) {
-            return null;
+            throw new Error("Id informado é inválido.");
         }
         return categorias;
     }
 
-    async filtrarCategoriaPorNome(name: any): Promise<CategoriaEntity[]> {
+    async filtrarCategoriaPorNome(name: string): Promise<CategoriaEntity[]> {
         const nome: string = name;
 
         if (typeof nome !== 'string' || nome.trim() === '') {

@@ -7,6 +7,7 @@ export class PessoaService {
 
     async cadastrarPessoa(pessoaData: any): Promise<PessoaEntity> {
         const { name, email } = pessoaData;
+
         const pessoasExistentes: PessoaEntity[] = await this.pessoaRepository.filterPessoaPorEmail(email);
         if (pessoasExistentes.length > 0) {
             throw new Error("Já existe uma pessoa cadastrada com esse e-mail.");
@@ -18,6 +19,13 @@ export class PessoaService {
 
     async atualizarPessoa(pessoaData: any): Promise<PessoaEntity> {
         const { id, name, email } = pessoaData;
+
+        if (typeof name !== 'string') {
+            throw new Error("Nome da pessoa é obrigatório e deve ser uma string não vazia.");
+        }
+        if (typeof email !== 'string') {
+            throw new Error("Email da pessoa é obrigatório e deve ser uma string não vazia.");
+        }
 
         if (typeof id !== 'number') {
             throw new Error("Id informado incorreto.");
