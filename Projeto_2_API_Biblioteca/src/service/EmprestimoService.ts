@@ -44,6 +44,10 @@ export class EmprestimoService {
         if (typeof dataDevolucao !== 'string') {
             throw new Error("Data da Devolução é obrigatório");
         }
+        const emprestimoExistente = await this.emprestimoRepository.filterEmprestimoPorId(id);
+        if (!emprestimoExistente) {
+            throw new Error("Emprestimo não encontrado.");
+        }
 
         const livro = await this.livroRepository.filterLivro(idLivro);
         if (!livro) {

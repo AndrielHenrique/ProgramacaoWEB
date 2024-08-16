@@ -30,6 +30,10 @@ export class PessoaService {
         if (typeof id !== 'number') {
             throw new Error("Id informado incorreto.");
         }
+        const pessoaExistente = await this.pessoaRepository.filterPessoaPorId(id);
+        if (!pessoaExistente) {
+            throw new Error("Pessoa não encontrado.");
+        }
 
         const pessoa = new PessoaEntity(id, name, email);
         await this.pessoaRepository.atualizarPessoa(pessoa);

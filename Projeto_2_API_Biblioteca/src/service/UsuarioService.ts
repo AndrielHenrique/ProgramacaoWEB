@@ -35,6 +35,14 @@ export class UsuarioService {
         if (typeof senha !== 'string') {
             throw new Error("A senha é obrigatório");
         }
+        const idUsuario = await this.usuarioRepository.filterUsuarioPorId(id);
+        if (!idUsuario) {
+            throw new Error("Usuario não encontrada.");
+        }
+        const pessoa = await this.pessoaRepository.filterPessoaPorId(idPessoa);
+        if (!pessoa) {
+            throw new Error("Pessoa não encontrada.");
+        }
 
         const usuario = new UsuarioEntity(undefined, idPessoa, senha);
         await this.usuarioRepository.atualizarUsuario(usuario);

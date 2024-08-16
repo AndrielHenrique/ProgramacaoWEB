@@ -43,12 +43,17 @@ export class LivroService {
         if (typeof autor !== 'string' || autor.trim() === '') {
             throw new Error("Autor do livro é obrigatório e deve ser uma string não vazia.");
         }
-        if (typeof categoriaID !== 'number') {
-            throw new Error("Categoria ID deve ser um número válido.");
+
+        const livroExistente = await this.livroRepository.filterLivro(id);
+        if (!livroExistente) {
+            throw new Error("Livro não encontrado.");
         }
-        if (typeof id !== 'number') {
-            throw new Error("Id informado incorreto.");
+
+        const categoriasExistentes = await this.categoriaRepository.filterCategoria(categoriaID);
+        if (!categoriasExistentes) {
+            throw new Error("Categoria não encontrada.");
         }
+
         const livro = new LivroEntity(id, name, autor, categoriaID);
         await this.livroRepository.updateLivro(livro);
         console.log("Service - Update ", livro);
@@ -73,12 +78,6 @@ export class LivroService {
         }
         if (typeof autor !== 'string' || autor.trim() === '') {
             throw new Error("Autor do livro é obrigatório e deve ser uma string não vazia.");
-        }
-        if (typeof categoriaID !== 'number') {
-            throw new Error("Categoria ID deve ser um número válido.");
-        }
-        if (typeof id !== 'number') {
-            throw new Error("Id informado incorreto.");
         }
 
         const livro = new LivroEntity(id, name, autor, categoriaID);
