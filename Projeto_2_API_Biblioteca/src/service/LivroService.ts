@@ -14,12 +14,12 @@ export class LivroService {
         const { name, autor, categoriaID } = livroData;
 
         const categoriasExistentes = await this.categoriaRepository.filterCategoria(categoriaID);
-        if (!categoriasExistentes) {
+        if (!categoriasExistentes || (Array.isArray(categoriasExistentes) && categoriasExistentes.length == 0)) {
             throw new Error("Categoria não encontrada.");
         }
         const livroExistente = await this.livroRepository.filterLivroByName(name)
         if (livroExistente.length > 0) {
-            throw new Error("Categoria não encontrada.");
+            throw new Error("Já existe um livro com esse nome.");
         }
 
         const livro = new LivroEntity(undefined, name, autor, categoriaID);
@@ -50,7 +50,7 @@ export class LivroService {
         }
 
         const categoriasExistentes = await this.categoriaRepository.filterCategoria(categoriaID);
-        if (!categoriasExistentes) {
+        if (!categoriasExistentes || (Array.isArray(categoriasExistentes) && categoriasExistentes.length == 0)) {
             throw new Error("Categoria não encontrada.");
         }
 

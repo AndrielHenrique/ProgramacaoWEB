@@ -1,5 +1,4 @@
-
-export class UsuarioRequestsDto {
+export class UsuarioDto {
     id: number;
     idPessoa: number;
     senha: string;

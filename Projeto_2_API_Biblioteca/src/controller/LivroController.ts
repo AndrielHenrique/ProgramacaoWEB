@@ -1,7 +1,8 @@
 import { Controller, Route, Tags, Post, Body, Res, TsoaResponse, Put, Delete, Get, Query, Path } from "tsoa";
 import { BasicResponseDto } from "../model/dto/BasicResponseDto";
-import { LivroRequestsDto } from "../model/dto/LivroRequestsDto";
+import { LivroRequestsDto } from "../model/dto/LivroDto/LivroRequestsDto";
 import { LivroService } from "../service/LivroService";
+import { LivroDto } from "../model/dto/LivroDto/LivroDto";
 
 @Route("livro")
 @Tags("Livro")
@@ -25,7 +26,7 @@ export class LivroController extends Controller {
 
     @Put()
     async atualizarLivro(
-        @Body() dto: LivroRequestsDto,
+        @Body() dto: LivroDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
@@ -39,7 +40,7 @@ export class LivroController extends Controller {
 
     @Delete()
     async deletarLivro(
-        @Body() dto: LivroRequestsDto,
+        @Body() dto: LivroDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
@@ -65,9 +66,9 @@ export class LivroController extends Controller {
         }
     }
 
-    @Get()
+    @Get("name/{name}")
     async filtrarCategoriaPorNome(
-        @Query() name: number,
+        @Query() name: string,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {

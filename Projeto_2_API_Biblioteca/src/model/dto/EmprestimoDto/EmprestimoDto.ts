@@ -1,4 +1,4 @@
-export class EmprestimoRequestsDto {
+export class EmprestimoDto {
     id: number;
     idLivro: number;
     usuarioID: number;

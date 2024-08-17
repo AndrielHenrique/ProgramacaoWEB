@@ -1,7 +1,8 @@
 import { Controller, Route, Tags, Post, Body, Res, TsoaResponse, Put, Delete, Get, Query, Path } from "tsoa";
 import { BasicResponseDto } from "../model/dto/BasicResponseDto";
-import { EmprestimoRequestsDto } from "../model/dto/EmprestimoRequestsDto";
+import { EmprestimoRequestsDto } from "../model/dto/EmprestimoDto/EmprestimoRequestsDto";
 import { EmprestimoService } from "../service/EmprestimoService";
+import { EmprestimoDto } from "../model/dto/EmprestimoDto/EmprestimoDto";
 
 @Route("emprestimo")
 @Tags("Emprestimo")
@@ -24,7 +25,7 @@ export class EmprestimoController extends Controller {
 
     @Put()
     async atualizarEmprestimo(
-        @Body() dto: EmprestimoRequestsDto,
+        @Body() dto: EmprestimoDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() success: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
@@ -38,7 +39,7 @@ export class EmprestimoController extends Controller {
 
     @Delete()
     async deletarEmprestimo(
-        @Body() dto: EmprestimoRequestsDto,
+        @Body() dto: EmprestimoDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() success: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {

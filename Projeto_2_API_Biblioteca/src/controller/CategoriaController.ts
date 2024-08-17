@@ -1,7 +1,8 @@
 import { Controller, Route, Tags, Post, Body, Res, TsoaResponse, Put, Delete, Get, Query, Path } from "tsoa";
 import { BasicResponseDto } from "../model/dto/BasicResponseDto";
-import { CategoriaRequestsDto } from "../model/dto/CategoriaRequestsDto";
+import { CategoriaRequestsDto } from "../model/dto/CategoriaDto/CategoriaRequestsDto";
 import { CategoriaService } from "../service/CategoriaService";
+import { CategoriaDto } from "../model/dto/CategoriaDto/CategoriaDto";
 @Route("categoria")
 @Tags("Categoria")
 
@@ -24,7 +25,7 @@ export class CategoriaController extends Controller {
 
     @Put()
     async atualizarCategoria(
-        @Body() dto: CategoriaRequestsDto,
+        @Body() dto: CategoriaDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
@@ -38,7 +39,7 @@ export class CategoriaController extends Controller {
 
     @Delete()
     async deletarCategoria(
-        @Body() dto: CategoriaRequestsDto,
+        @Body() dto: CategoriaDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() sucess: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {

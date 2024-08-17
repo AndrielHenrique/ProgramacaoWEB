@@ -11,12 +11,12 @@ export class UsuarioService {
         const { idPessoa, senha } = usuarioData;
 
         const usuarioExistente = await this.filtrarUsuarioPorIdPessoa(idPessoa);
-        if (!usuarioExistente) {
+        if (usuarioExistente.length > 0) {
             throw new Error("Usuario ja existe.");
         }
 
         const pessoa = await this.pessoaRepository.filterPessoaPorId(idPessoa);
-        if (!pessoa) {
+        if (!pessoa || (Array.isArray(pessoa) && pessoa.length === 0)) {
             throw new Error("Pessoa não encontrada.");
         }
         const usuario = new UsuarioEntity(undefined, idPessoa, senha);
@@ -39,12 +39,13 @@ export class UsuarioService {
         if (!idUsuario) {
             throw new Error("Usuario não encontrada.");
         }
+
         const pessoa = await this.pessoaRepository.filterPessoaPorId(idPessoa);
-        if (!pessoa) {
+        if (!pessoa || (Array.isArray(pessoa) && pessoa.length === 0)) {
             throw new Error("Pessoa não encontrada.");
         }
 
-        const usuario = new UsuarioEntity(undefined, idPessoa, senha);
+        const usuario = new UsuarioEntity(id, idPessoa, senha);
         await this.usuarioRepository.atualizarUsuario(usuario);
         console.log("Service - Update Usuario", usuario);
         return usuario;

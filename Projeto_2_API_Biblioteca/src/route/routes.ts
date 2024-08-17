@@ -22,7 +22,6 @@ const models: TsoaRoute.Models = {
     "UsuarioRequestsDto": {
         "dataType": "refObject",
         "properties": {
-            "id": {"dataType":"double","required":true},
             "idPessoa": {"dataType":"double","required":true},
             "senha": {"dataType":"string","required":true},
         },
@@ -38,7 +37,26 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "UsuarioDto": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "idPessoa": {"dataType":"double","required":true},
+            "senha": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "PessoaRequestsDto": {
+        "dataType": "refObject",
+        "properties": {
+            "name": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "PessoaDto": {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"double","required":true},
@@ -49,6 +67,16 @@ const models: TsoaRoute.Models = {
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "LivroRequestsDto": {
+        "dataType": "refObject",
+        "properties": {
+            "name": {"dataType":"string","required":true},
+            "autor": {"dataType":"string","required":true},
+            "categoriaID": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "LivroDto": {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"double","required":true},
@@ -62,6 +90,17 @@ const models: TsoaRoute.Models = {
     "EmprestimoRequestsDto": {
         "dataType": "refObject",
         "properties": {
+            "idLivro": {"dataType":"double","required":true},
+            "usuarioID": {"dataType":"double","required":true},
+            "dataEmprestimo": {"dataType":"string","required":true},
+            "dataDevolucao": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "EmprestimoDto": {
+        "dataType": "refObject",
+        "properties": {
             "id": {"dataType":"double","required":true},
             "idLivro": {"dataType":"double","required":true},
             "usuarioID": {"dataType":"double","required":true},
@@ -72,6 +111,14 @@ const models: TsoaRoute.Models = {
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "CategoriaRequestsDto": {
+        "dataType": "refObject",
+        "properties": {
+            "name": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "CategoriaDto": {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"double","required":true},
@@ -135,7 +182,7 @@ export function RegisterRoutes(app: Router) {
 
             async function UsuarioController_atualizarUsuario(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    dto: {"in":"body","name":"dto","required":true,"ref":"UsuarioRequestsDto"},
+                    dto: {"in":"body","name":"dto","required":true,"ref":"UsuarioDto"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     success: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };
@@ -167,7 +214,7 @@ export function RegisterRoutes(app: Router) {
 
             async function UsuarioController_deletarUsuario(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    dto: {"in":"body","name":"dto","required":true,"ref":"UsuarioRequestsDto"},
+                    dto: {"in":"body","name":"dto","required":true,"ref":"UsuarioDto"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     success: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };
@@ -294,7 +341,7 @@ export function RegisterRoutes(app: Router) {
 
             async function PessoaController_atualizarPessoa(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    dto: {"in":"body","name":"dto","required":true,"ref":"PessoaRequestsDto"},
+                    dto: {"in":"body","name":"dto","required":true,"ref":"PessoaDto"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     success: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };
@@ -326,7 +373,7 @@ export function RegisterRoutes(app: Router) {
 
             async function PessoaController_deletarPessoa(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    dto: {"in":"body","name":"dto","required":true,"ref":"PessoaRequestsDto"},
+                    dto: {"in":"body","name":"dto","required":true,"ref":"PessoaDto"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     success: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };
@@ -485,7 +532,7 @@ export function RegisterRoutes(app: Router) {
 
             async function LivroController_atualizarLivro(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    dto: {"in":"body","name":"dto","required":true,"ref":"LivroRequestsDto"},
+                    dto: {"in":"body","name":"dto","required":true,"ref":"LivroDto"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     sucess: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };
@@ -517,7 +564,7 @@ export function RegisterRoutes(app: Router) {
 
             async function LivroController_deletarLivro(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    dto: {"in":"body","name":"dto","required":true,"ref":"LivroRequestsDto"},
+                    dto: {"in":"body","name":"dto","required":true,"ref":"LivroDto"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     sucess: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };
@@ -575,13 +622,13 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/livro',
+        app.get('/livro/name/:name',
             ...(fetchMiddlewares<RequestHandler>(LivroController)),
             ...(fetchMiddlewares<RequestHandler>(LivroController.prototype.filtrarCategoriaPorNome)),
 
             async function LivroController_filtrarCategoriaPorNome(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    name: {"in":"query","name":"name","required":true,"dataType":"double"},
+                    name: {"in":"query","name":"name","required":true,"dataType":"string"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     sucess: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };
@@ -676,7 +723,7 @@ export function RegisterRoutes(app: Router) {
 
             async function EmprestimoController_atualizarEmprestimo(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    dto: {"in":"body","name":"dto","required":true,"ref":"EmprestimoRequestsDto"},
+                    dto: {"in":"body","name":"dto","required":true,"ref":"EmprestimoDto"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     success: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };
@@ -708,7 +755,7 @@ export function RegisterRoutes(app: Router) {
 
             async function EmprestimoController_deletarEmprestimo(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    dto: {"in":"body","name":"dto","required":true,"ref":"EmprestimoRequestsDto"},
+                    dto: {"in":"body","name":"dto","required":true,"ref":"EmprestimoDto"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     success: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };
@@ -899,7 +946,7 @@ export function RegisterRoutes(app: Router) {
 
             async function CategoriaController_atualizarCategoria(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    dto: {"in":"body","name":"dto","required":true,"ref":"CategoriaRequestsDto"},
+                    dto: {"in":"body","name":"dto","required":true,"ref":"CategoriaDto"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     sucess: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };
@@ -931,7 +978,7 @@ export function RegisterRoutes(app: Router) {
 
             async function CategoriaController_deletarCategoria(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    dto: {"in":"body","name":"dto","required":true,"ref":"CategoriaRequestsDto"},
+                    dto: {"in":"body","name":"dto","required":true,"ref":"CategoriaDto"},
                     fail: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     sucess: {"in":"res","name":"201","required":true,"ref":"BasicResponseDto"},
             };

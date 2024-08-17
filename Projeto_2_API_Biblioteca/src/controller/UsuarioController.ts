@@ -1,7 +1,8 @@
 import { Controller, Route, Tags, Post, Body, Res, TsoaResponse, Put, Delete, Get, Query, Path } from "tsoa";
 import { BasicResponseDto } from "../model/dto/BasicResponseDto";
-import { UsuarioRequestsDto } from "../model/dto/UsuarioRequestsDto";
+import { UsuarioRequestsDto } from "../model/dto/UsuarioDto/UsuarioRequestsDto";
 import { UsuarioService } from "../service/UsuarioService";
+import { UsuarioDto } from "../model/dto/UsuarioDto/UsuarioDto";
 
 @Route("usuario")
 @Tags("Usuario")
@@ -24,7 +25,7 @@ export class UsuarioController extends Controller {
 
     @Put()
     async atualizarUsuario(
-        @Body() dto: UsuarioRequestsDto,
+        @Body() dto: UsuarioDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() success: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {
@@ -38,7 +39,7 @@ export class UsuarioController extends Controller {
 
     @Delete()
     async deletarUsuario(
-        @Body() dto: UsuarioRequestsDto,
+        @Body() dto: UsuarioDto,
         @Res() fail: TsoaResponse<400, BasicResponseDto>,
         @Res() success: TsoaResponse<201, BasicResponseDto>
     ): Promise<void> {

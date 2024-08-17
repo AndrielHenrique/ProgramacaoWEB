@@ -9,10 +9,6 @@
 		"schemas": {
 			"UsuarioRequestsDto": {
 				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
-					},
 					"idPessoa": {
 						"type": "number",
 						"format": "double"
@@ -22,7 +18,6 @@
 					}
 				},
 				"required": [
-					"id",
 					"idPessoa",
 					"senha"
 				],
@@ -43,7 +38,45 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"UsuarioDto": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"idPessoa": {
+						"type": "number",
+						"format": "double"
+					},
+					"senha": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"idPessoa",
+					"senha"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"PessoaRequestsDto": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PessoaDto": {
 				"properties": {
 					"id": {
 						"type": "number",
@@ -65,6 +98,27 @@
 				"additionalProperties": false
 			},
 			"LivroRequestsDto": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"autor": {
+						"type": "string"
+					},
+					"categoriaID": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"autor",
+					"categoriaID"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LivroDto": {
 				"properties": {
 					"id": {
 						"type": "number",
@@ -91,6 +145,32 @@
 				"additionalProperties": false
 			},
 			"EmprestimoRequestsDto": {
+				"properties": {
+					"idLivro": {
+						"type": "number",
+						"format": "double"
+					},
+					"usuarioID": {
+						"type": "number",
+						"format": "double"
+					},
+					"dataEmprestimo": {
+						"type": "string"
+					},
+					"dataDevolucao": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"idLivro",
+					"usuarioID",
+					"dataEmprestimo",
+					"dataDevolucao"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EmprestimoDto": {
 				"properties": {
 					"id": {
 						"type": "number",
@@ -122,6 +202,18 @@
 				"additionalProperties": false
 			},
 			"CategoriaRequestsDto": {
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CategoriaDto": {
 				"properties": {
 					"id": {
 						"type": "number",
@@ -228,7 +320,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UsuarioRequestsDto"
+								"$ref": "#/components/schemas/UsuarioDto"
 							}
 						}
 					}
@@ -271,7 +363,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UsuarioRequestsDto"
+								"$ref": "#/components/schemas/UsuarioDto"
 							}
 						}
 					}
@@ -439,7 +531,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/PessoaRequestsDto"
+								"$ref": "#/components/schemas/PessoaDto"
 							}
 						}
 					}
@@ -482,7 +574,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/PessoaRequestsDto"
+								"$ref": "#/components/schemas/PessoaDto"
 							}
 						}
 					}
@@ -692,7 +784,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/LivroRequestsDto"
+								"$ref": "#/components/schemas/LivroDto"
 							}
 						}
 					}
@@ -735,54 +827,11 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/LivroRequestsDto"
+								"$ref": "#/components/schemas/LivroDto"
 							}
 						}
 					}
 				}
-			},
-			"get": {
-				"operationId": "FiltrarCategoriaPorNome",
-				"responses": {
-					"201": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/BasicResponseDto"
-								}
-							}
-						}
-					},
-					"204": {
-						"description": "No content"
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/BasicResponseDto"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Livro"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
 			}
 		},
 		"/livro/id/{id}": {
@@ -825,6 +874,50 @@
 						"schema": {
 							"format": "double",
 							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/livro/name/{name}": {
+			"get": {
+				"operationId": "FiltrarCategoriaPorNome",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Livro"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
 						}
 					}
 				]
@@ -946,7 +1039,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/EmprestimoRequestsDto"
+								"$ref": "#/components/schemas/EmprestimoDto"
 							}
 						}
 					}
@@ -989,7 +1082,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/EmprestimoRequestsDto"
+								"$ref": "#/components/schemas/EmprestimoDto"
 							}
 						}
 					}
@@ -1247,7 +1340,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/CategoriaRequestsDto"
+								"$ref": "#/components/schemas/CategoriaDto"
 							}
 						}
 					}
@@ -1290,7 +1383,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/CategoriaRequestsDto"
+								"$ref": "#/components/schemas/CategoriaDto"
 							}
 						}
 					}
