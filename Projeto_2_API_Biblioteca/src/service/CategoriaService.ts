@@ -38,7 +38,7 @@ export class CategoriaService {
         const categoria = new CategoriaEntity(id, name);
 
         const categoriasExistentes = await this.categoriaRepository.filterCategoria(categoria.id);
-        if (!categoriasExistentes) {
+        if (categoriasExistentes.length == 0) {
             throw new Error("Categoria informada inexistente.");
         }
 
@@ -76,7 +76,7 @@ export class CategoriaService {
         }
 
         const categorias = await this.categoriaRepository.filterCategoria(idNumber);
-        if (!categorias) {
+        if (categorias.length == 0) {
             throw new Error("Id informado é inválido.");
         }
         return categorias;

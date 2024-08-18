@@ -73,13 +73,13 @@ export class PessoaRepository {
         }
     }
 
-    async filterPessoaPorId(id: number): Promise<PessoaEntity> {
+    async filterPessoaPorId(id: number): Promise<PessoaEntity[]> {
         const query = "SELECT * FROM estoque.Pessoa WHERE id = ?";
 
         try {
             const resultado = await executarComandoSQL(query, [id]);
             console.log('Pessoa encontrada com sucesso, ID: ', resultado);
-            return new Promise<PessoaEntity>((resolve) => {
+            return new Promise<PessoaEntity[]>((resolve) => {
                 resolve(resultado);
             });
         } catch (err: any) {

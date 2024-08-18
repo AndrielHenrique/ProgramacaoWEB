@@ -31,7 +31,7 @@ export class PessoaService {
             throw new Error("Id informado incorreto.");
         }
         const pessoaExistente = await this.pessoaRepository.filterPessoaPorId(id);
-        if (!pessoaExistente) {
+        if (pessoaExistente.length == 0) {
             throw new Error("Pessoa não encontrado.");
         }
 
@@ -41,7 +41,7 @@ export class PessoaService {
         return pessoa;
     }
 
-    async deletarPessoa(pessoaData: any): Promise<PessoaEntity> {
+    async deletarPessoa(pessoaData: any): Promise<PessoaEntity[]> {
         const { id } = pessoaData;
 
         if (typeof id !== 'number') {
@@ -49,7 +49,7 @@ export class PessoaService {
         }
 
         const pessoa = await this.pessoaRepository.filterPessoaPorId(id);
-        if (!pessoa) {
+        if (pessoa.length == 0) {
             throw new Error("Pessoa informada inexistente.");
         }
 
@@ -58,7 +58,7 @@ export class PessoaService {
         return pessoa;
     }
 
-    async filtrarPessoaPorId(id: number): Promise<PessoaEntity> {
+    async filtrarPessoaPorId(id: number): Promise<PessoaEntity[]> {
         const pessoa = await this.pessoaRepository.filterPessoaPorId(id);
         console.log("Service - Filtrar Pessoa por ID", pessoa);
         return pessoa;
